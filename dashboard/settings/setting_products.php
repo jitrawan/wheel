@@ -1,4 +1,9 @@
 
+<style>
+.fontawesome-select {
+    font-family: 'FontAwesome', 'Helvetica';
+}
+</style>
 <div class="row">
      <div class="col-lg-12">
              <h1 class="page-header"><i class="fa flaticon-bullet1 fa-fw"></i> <?php echo @LA_MN_PRODUCT;?></h1>
@@ -10,61 +15,20 @@
   <li class="active"><?php echo @LA_MN_PRODUCT;?></li>
 </ol>
 <?php
-if(isset($_POST['save_categories'])){
-	if(addslashes($_POST['cat_name']) != NULL){
-		$cat_key = md5(addslashes($_POST['cat_name']).time("now"));
-		$getdata->my_sql_insert("categories","cat_key='".$cat_key."',cat_name='".addslashes($_POST['cat_name'])."',cat_status='".addslashes($_POST['cat_status'])."'");
-		$alert = '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_ADD_EXPENDITURES_GROUP.'</div>';
-	}else{
-		$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>'; 
-	}
-}
 if(isset($_POST['save_product'])){
-	if(addslashes($_POST['pro_name']) != NULL && addslashes($_POST['pro_price']) != NULL){
-	if (!defined('UPLOADDIR')) define('UPLOADDIR','../resource/products/images/');
-				if (is_uploaded_file($_FILES["pro_cover"]["tmp_name"])) {	
-				$File_name = $_FILES["pro_cover"]["name"];
-				$File_tmpname = $_FILES["pro_cover"]["tmp_name"];
-				
-				$File_ext = pathinfo($File_name, PATHINFO_EXTENSION);
-				$newfilename = md5(time("now")).'.'.$File_ext;
-				if (move_uploaded_file($File_tmpname, (UPLOADDIR.$newfilename)));
-	}
-	$pro_key = md5(addslashes($_POST['pro_code']).time("now"));
-	
-	/*if($File_name != NULL){
-		resizeProductThumb($File_ext,$newfilename);
-		$getdata->my_sql_insert("products","pro_key='".$pro_key."',cat_key='".addslashes($_REQUEST['cat_key'])."',pro_std_code='".addslashes($_POST['pro_std_code'])."',pro_name='".addslashes($_POST['pro_name'])."',pro_detail='".addslashes($_POST['pro_detail'])."',pro_cover='".$newfilename."',pro_price='".addslashes($_POST['pro_price'])."',pro_status='".addslashes($_REQUEST['pro_status'])."'");
-	}else{
-		$getdata->my_sql_insert("products","pro_key='".$pro_key."',cat_key='".addslashes($_REQUEST['cat_key'])."',pro_std_code='".addslashes($_POST['pro_std_code'])."',pro_name='".addslashes($_POST['pro_name'])."',pro_detail='".addslashes($_POST['pro_detail'])."',pro_price='".addslashes($_POST['pro_price'])."',pro_status='".addslashes($_REQUEST['pro_status'])."'");
-	}*/
-	//updateLynda();
-	$alert = '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_ADD_EXPENDITURES.'</div>';
+	if(addslashes($_POST['ProductName']) != NULL){
+		//$cat_key = md5(addslashes($_POST['cat_name']).time("now"));
+    $getdata->my_sql_insert_New("product","ProductID, ProductName, BrandID, ModelID, dealer_code, ProductDetail, Quantity, PriceSale, PriceBuy, IsNew, IsRecommend, TypeID, ProductStatus, Warranty, shelf_id"," '".addslashes($_POST['ProductID'])."','".addslashes($_POST['ProductName'])."','".addslashes($_POST['BrandID'])."','".addslashes($_POST['ModelID'])."','".addslashes($_POST['dealer_code'])."','".addslashes($_POST['ProductDetail'])."','".addslashes($_POST['Quantity'])."','".addslashes($_POST['PriceSale'])."','".addslashes($_POST['PriceBuy'])."', '' , '' ,'".addslashes($_POST['TypeID'])."','".addslashes($_POST['ProductStatus'])."','".addslashes($_POST['shelf_id'])."' ");
+		$alert = '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_ADD_NEW_TYPE_OF_IS_DONE.'</div>';
 	}else{
 		$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>'; 
 	}
 }
 
 if(isset($_POST['save_edit_item'])){
-	if(addslashes($_POST['edit_pro_name']) != NULL && addslashes($_POST['edit_pro_price']) != NULL){
-	if (!defined('UPLOADDIRE')) define('UPLOADDIRE','../resource/products/images/');
-				if (is_uploaded_file($_FILES["edit_pro_cover"]["tmp_name"])) {	
-				$File_name_e = $_FILES["edit_pro_cover"]["name"];
-				$File_tmpname_e = $_FILES["edit_pro_cover"]["tmp_name"];
-				
-				$File_ext_e = pathinfo($File_name_e, PATHINFO_EXTENSION);
-				$newfilename_e = md5(time("now")).'.'.$File_ext_e;
-				if (move_uploaded_file($File_tmpname_e, (UPLOADDIRE.$newfilename_e)));
-	}
-	$pro_key = md5(addslashes($_POST['edit_pro_code']).time("now"));
+	if(addslashes($_POST['edit_ProductName']) != NULL){
+	  $getdata->my_sql_update("product","ProductName='".addslashes($_REQUEST['edit_ProductName'])."',BrandID='".addslashes($_POST['edit_BrandID'])."',ModelID='".addslashes($_POST['edit_ModelID'])."',dealer_code='".addslashes($_POST['edit_dealer_code'])."',ProductDetail='".addslashes($_POST['edit_ProductDetail'])."',Quantity='".addslashes($_POST['edit_Quantity'])."',TypeID='".addslashes($_POST['edit_TypeID'])."',Warranty='".addslashes($_POST['edit_Warranty'])."' ,shelf_id='".addslashes($_POST['edit_shelf_id'])."' ","ProductID='".addslashes($_POST['edit_ProductID'])."'");
 	
-	if($File_name_e != NULL){
-		resizeProductThumb($File_ext_e,$newfilename_e);
-		$getdata->my_sql_update("products","cat_key='".addslashes($_REQUEST['edit_cat_key'])."',pro_std_code='".addslashes($_POST['edit_pro_std_code'])."',pro_name='".addslashes($_POST['edit_pro_name'])."',pro_detail='".addslashes($_POST['edit_pro_detail'])."',pro_cover='".$newfilename_e."',pro_price='".addslashes($_POST['edit_pro_price'])."'","pro_key='".addslashes($_POST['pro_key'])."'");
-	}else{
-		$getdata->my_sql_update("products","cat_key='".addslashes($_REQUEST['edit_cat_key'])."',pro_std_code='".addslashes($_POST['edit_pro_std_code'])."',pro_name='".addslashes($_POST['edit_pro_name'])."',pro_detail='".addslashes($_POST['edit_pro_detail'])."',pro_price='".addslashes($_POST['edit_pro_price'])."'","pro_key='".addslashes($_POST['pro_key'])."'");
-	}
-	updateLynda();
 	$alert = '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_UPDATE_DATA_DONE.'</div>';
 	}else{
 		$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>'; 
@@ -86,103 +50,155 @@ if(isset($_POST['save_edit_item'])){
                 </div>
             </div>
         </div>
-
-
-
-        
   </form>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><form method="post" enctype="multipart/form-data" name="form1" id="form1">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel"><?php echo @LA_LB_ADD_NEW_CATEGORIES;?></h4>
-                                        </div>
-                                        <div class="modal-body">
-                                          <div class="form-group">
-                                            <label for="cat_name"><?php echo @LA_LB_CAT_NAME;?></label>
-                                            <input type="text" name="cat_name" id="cat_name" class="form-control" autofocus>
-                                          </div>
-                                           
-                                            <div class="form-group">
-                                              <label for="cat_status"><?php echo @LA_LB_STATUS;?></label>
-                                              <select name="cat_status" id="cat_status" class="form-control">
-                                                <option value="1" selected="selected"><?php echo @LA_BTN_SHOW;?></option>
-                                                <option value="0"><?php echo @LA_BTN_HIDE;?></option>
-                                              
-                                              </select>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times fa-fw"></i><?php echo @LA_BTN_CLOSE;?></button>
-                                          <button type="submit" name="save_categories" class="btn btn-primary btn-sm"><i class="fa fa-save fa-fw"></i><?php echo @LA_BTN_SAVE;?></button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                </form>
-                                <!-- /.modal-dialog -->
-</div>
-                            <!-- /.modal -->
-<!-- Modal -->
+
 <div class="modal fade" id="model_product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><form method="post" enctype="multipart/form-data" name="form1" id="form1">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                            <h4 class="modal-title" id="myModalLabel"><?php echo @LA_LB_ADD_NEW_EXPENDITURES;?></h4>
+                                            <h4 class="modal-title" id="myModalLabel">เพิ่มรายการสินค้า</h4>
                                         </div>
-                                        <div class="modal-body">
-                                        
-                                          
-                                         <div class="form-group">
-                                           <label for="cat_key"><?php echo @LA_LB_CAT_NAME;?></label>
-                                           <select name="cat_key" id="cat_key" class="form-control">
-                                            <?php $getcat = $getdata->my_sql_select(NULL,"categories","cat_status='1' ORDER BY cat_insert");
-											while($showcat = mysql_fetch_object($getcat)){
-												echo '<option value="'.$showcat->cat_key.'">'.$showcat->cat_name.'</option>';
-											}
-											?>
-                                           </select>
+                                        <?
+                                                @$getMaxid = $getdata->getMaxID("ProductID","product","P");
+                                              
+                                                $getypetest = $getdata->my_sql_select(NULL,"type",NULL);
+                                                $getypebrand = $getdata->my_sql_select(NULL,"brand",NULL);
+                                                $getypemodel = $getdata->my_sql_select(NULL,"model",NULL);
+                                                $getdealer = $getdata->my_sql_select(NULL,"dealer",NULL);
+                                                $getshelf = $getdata->my_sql_select(NULL,"shelf",NULL);
+                                                
+                                        ?>
+                                         <div class="modal-body">
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="ProductID">รหัสสินค้า</label>
+                                              <input type="text" name="ProductID" id="ProductID" value="<?php echo @$getMaxid;?>" class="form-control" readonly>
+                                            </div>
+                                            <div class="col-md-6">
+                                             <label for="dealer_code">ผู้จำหน่าย</label>
+                                             <select name="dealer_code" id="dealer_code" class="form-control">
+                                              <option value="" selected="selected">--เลือกผู้จำหน่าย--</option>
+                                              <?
+                                              while($showdealer = mysql_fetch_object($getdealer)){?>
+                                              <option value="<?php echo @$showdealer->dealer_code;?>" ><?php echo @$showdealer->dealer_name;?></option>
+                                              <?
+                                               }
+                                             ?>
+                                              </select>
+                                             </div>
                                          </div>
-                                         <div class="form-group">
-                                           <label for="pro_std_code"><?php echo @LA_LB_EXPENDITURES_CODE;?></label>
-                                           <input type="text" name="pro_std_code" id="pro_std_code" class="form-control">
+
+                                        <div class="form-group">
+                                           <label for="ProductName">ชื่อสินค้า</label>
+                                           <input type="text" name="ProductName" id="ProductName" class="form-control">
                                          </div>
+
                                          <div class="form-group">
-                                           <label for="pro_name"><?php echo @LA_LB_EXPENDITURES_NAME;?></label>
-                                           <input type="text" name="pro_name" id="pro_name" class="form-control">
-                                         </div>
-                                          <div class="form-group">
-                                            <label for="pro_detail"><?php echo @LA_LB_DETAIL;?></label>
-                                            <textarea name="pro_detail" id="pro_detail" class="form-control"></textarea>
+                                            <label for="ProductDetail">รายละเอียดสินค้า</label>
+                                            <textarea name="ProductDetail" id="ProductDetail" class="form-control"></textarea>
                                           </div>
-                                          <div class="form-group">
-                                            <label for="pro_cover"><?php echo @LA_LB_PHOTO;?></label>
-                                            <input type="file" name="pro_cover" id="pro_cover" class="form-control">
+                                       
+                                       <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="TypeID">ประเภทสินค้า</label>
+                                              <select name="TypeID" id="TypeID" class="form-control">
+                                              <option value="" selected="selected">--เลือกประเภทสินค้า--</option>
+                                              <?
+                                              $rows = array();
+                                              while($showtype = mysql_fetch_object($getypetest)){
+                                                  $rows[] = $showtype;
+                                                  ?>
+                                                   <option value="<?php echo @$showtype->TypeID;?>" ><?php echo @$showtype->TypeName;?></option>
+                                                  <?
+                                              }
+                                              $getjson = @json_encode($rows,JSON_UNESCAPED_UNICODE);
+                                              ?>
+                                              </select>
+                                            </div>
+                                             <div class="col-md-6">
+                                             <label for="BrandID">ยี่ห้อสินค้า</label>
+                                             <select name="BrandID" id="BrandID" class="form-control">
+                                              <option value="" selected="selected">--เลือกยี่ห้อสินค้า--</option>
+                                              <?
+                                              $rowsbrand = array();
+                                              while($showbrand = mysql_fetch_object($getypebrand)){
+                                                  $rowsbrand[] = $showbrand;
+                                               }
+                                              $getjsonbrand = @json_encode($rowsbrand,JSON_UNESCAPED_UNICODE);
+                                              ?>
+                                              </select>
+                                             </div>
                                           </div>
-                                         
-                                          <div class="form-group">
-                                            <label for="pro_price"><?php echo @LA_LB_PRICE;?></label>
-                                            <input type="text" name="pro_price" id="pro_price" class="form-control">
+
+                                           <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="ModelID">รุ่น</label>
+                                              <select name="ModelID" id="ModelID" class="form-control">
+                                              <option value="" selected="selected">--เลือกรุ่นสินค้า--</option>
+                                              <?
+                                              $rowmodel = array();
+                                              while($showmodel = mysql_fetch_object($getypemodel)){
+                                                  $rowmodel[] = $showmodel;
+                                               }
+                                              $getjsonmodel= @json_encode($rowmodel,JSON_UNESCAPED_UNICODE);
+                                              ?>
+                                              </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                             <label for="Warranty">การรับประกัน</label>
+                                            <input type="text" name="Warranty" id="Warranty" class="form-control" >
+                                             </div>
                                           </div>
-                                      
-                                        
-                                         <div class="form-group">
-                                              <label for="pro_status"><?php echo @LA_LB_STATUS;?></label>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="PriceSale">ราคาขาย</label>
+                                              <input type="number" name="PriceSale" id="PriceSale" class="form-control" value="0" style="text-align: right;">
+                                            </div>
+                                             <div class="col-md-6">
+                                             <label for="PriceBuy">ราคาซื้อ</label>
+                                            <input type="number" name="PriceBuy" id="PriceBuy" class="form-control" value="0" style="text-align: right;">
+                                             </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="Quantity">คงเหลือ</label>
+                                              <input type="number" name="Quantity" id="Quantity" class="form-control" value="0" style="text-align: right;">
+                                            </div>
+                                            <div class="col-md-6">
+                                            <label for="pro_status"><?php echo @LA_LB_STATUS;?></label>
                                            <select name="pro_status" id="pro_status" class="form-control">
-                                                <option value="1" selected="selected"><?php echo @LA_BTN_SHOW;?></option>
-                                                <option value="0"><?php echo @LA_BTN_HIDE;?></option>
+                                                <option value="1" selected="selected">เปิดใช้งาน</option>
+                                                <option value="0">ปิดใช้งาน</option>
                                               
                                               </select>
+                                            </div>
+                                           </div>
+                                          
+                                        
+                                         <div class="form-group">
+                                         
+                                              <label for="shelf_id">shelf</label>
+                                              <select name="shelf_id" id="shelf_id" class="form-control">
+                                                <option value="" selected="selected">--เลือกชั้นวางสินค้า--</option>
+                                                <?
+                                              while($showshelf = mysql_fetch_object($getshelf)){?>
+                                              <option value="<?php echo @$showshelf->shelf_id;?>"><?php echo @$showshelf->shelf_detail;?></option>
+                                              <?
+                                               }
+                                             ?>
+                                              </select>
+     
                                           </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times fa-fw"></i> <?php echo @LA_BTN_CLOSE;?></button>
                                           <button type="submit" name="save_product" class="btn btn-primary btn-sm"><i class="fa fa-save fa-fw"></i> <?php echo @LA_BTN_SAVE;?></button>
                                         </div>
+
                                     </div>
                                     <!-- /.modal-content -->
                                 </div>
@@ -307,6 +323,48 @@ if(isset($_POST['save_edit_item'])){
 </div>
 </div>
 <script language="javascript">
+$( document ).ready(function() {
+  
+  $("#TypeID").change(function() {
+    opctionBrand($(this).val(),"BrandID");
+  });
+  $("#BrandID").change(function() {
+    opctionmodel($(this).val(),"ModelID");
+  });
+  
+});
+
+function opctionmodel(val,id){
+  var getjson = <?echo @$getjsonmodel?>;
+  var $ModelID = $("#"+id);
+  $ModelID.empty();
+  if(getjson != null){
+    $ModelID.append("<option>--เลือกรุ่นสินค้า--</option>");
+    for (var i = 0; i < getjson.length; i++) { 
+      if(val == getjson[i].BrandID){
+        $ModelID.append("<option value=" +  getjson[i].ModelID + ">" + getjson[i].ModelName + "</option>");
+      }
+    }
+  }else{
+    $ModelID.append("<option>--เลือกรุ่นสินค้า--</option>");
+  }
+};
+
+function opctionBrand(val,id){
+  var getjson = <?echo @$getjsonbrand?>;
+  var $BrandID = $("#"+id);
+  $BrandID.empty();
+  if(getjson != null){
+    $BrandID.append("<option>--เลือกยี่ห้อสินค้า--</option>");
+    for (var i = 0; i < getjson.length; i++) { 
+      if(val == getjson[i].TypeID){
+        $BrandID.append("<option value=" +  getjson[i].BrandID + ">" + getjson[i].BrandName + "</option>");
+      }
+    }
+  }else{
+    $BrandID.append("<option>--เลือกยี่ห้อสินค้า--</option>");
+  }
+};
 
 function changeproductsStatus(prokey,lang){
 	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
@@ -376,7 +434,7 @@ function changeproductsStatus(prokey,lang){
                 data: dataString,
                 cache: false,
                 success: function (data) {
-                    console.log(data);
+                   // console.log(data);
                     modal.find('.ct').html(data);
                 },
                 error: function(err) {

@@ -94,6 +94,13 @@ $getdata->my_sql_set_utf8();
 										}
 										
 		break;
+		case "change_shelf_status" : if(addslashes($_GET['sts']) == "1"){
+										$getdata->my_sql_update("shelf","shelf_status='0'","shelf_id='".addslashes($_GET['key'])."'");
+									}else{
+										$getdata->my_sql_update("shelf","shelf_status='1'","shelf_id='".addslashes($_GET['key'])."'");
+									}
+		
+break;
 		case "change_type_status" : if(addslashes($_GET['sts']) == "1"){
 											$getdata->my_sql_update("type","TypeStatus='0'","TypeID='".addslashes($_GET['key'])."'");
 										}else{

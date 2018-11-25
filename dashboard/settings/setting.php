@@ -21,7 +21,8 @@ if($system_info->system_need_update == 1){
 <div class="panel panel-primary">
      <div class="panel-heading">การตั้งค่าการใช้งาน</div>
          <div class="panel-body">
-          <a href="?p=setting_card_status" class="btn btn-primary btn_main_wd"><i class="fa flaticon-tag20 fa-fw fa-6x"></i><br/><br/>สถานะการซ่อม/เคลม</a>
+          <!--a href="?p=setting_card_status" class="btn btn-primary btn_main_wd"><i class="fa flaticon-tag20 fa-fw fa-6x"></i><br/><br/>สถานะการซ่อม/เคลม</a-->
+          <a href="?p=setting_shelf" class="btn btn-primary btn_main_wd"><i class="fa fa-archive fa-fw fa-6x"></i><br/><br/>shelf สินค้า</a>
           <!--a href="?p=setting_categories" class="btn btn-primary btn_main_wd"><i class="fa flaticon-stack4 fa-fw fa-6x"></i><br/><br/>หมวดหมู่ค่าใช้จ่าย</a-->
           <!--a href="?p=setting_products" class="btn btn-primary btn_main_wd"><i class="fa flaticon-bullet1 fa-fw fa-6x"></i><br/><br/>รายการค่าใช้จ่าย</a-->
           <a href="?p=setting_products" class="btn btn-primary btn_main_wd"><i class="fa flaticon-bullet1 fa-fw fa-6x"></i><br/><br/>รายการสินค้า</a>

@@ -276,6 +276,7 @@ var checkout = $('#dpd2').datepicker({
 <script>
     $(function() {
         $('.cp1').colorpicker();
+        $('.cp2').colorpicker();
     });
 	function checkCardCount(){
 	 $.ajax({

@@ -21,53 +21,155 @@ if(@$_SESSION['lang']!=NULL){
 	$_SESSION['lang'] = 'th';
 
 }
-$getitem = $getdata->my_sql_query(NULL,"products","pro_key='".addslashes($_GET['key'])."'");
-?>
- <div class="modal-body">
-  <div class="form-group">
-    <label for="edit_cat_key"><?php echo @LA_LB_CAT_NAME;?></label>
-    <select name="edit_cat_key" id="edit_cat_key" class="form-control">
-                                            <?php $getcat = $getdata->my_sql_select(NULL,"categories","cat_status='1' ORDER BY cat_insert");
-											while($showcat = mysql_fetch_object($getcat)){
-												if($showcat->cat_key == $getitem->cat_key){
-													echo '<option value="'.$showcat->cat_key.'" selected>'.$showcat->cat_name.'</option>';
-												}else{
-													echo '<option value="'.$showcat->cat_key.'">'.$showcat->cat_name.'</option>';
-												}
-												
-											}
-											?>
-                                           </select>
-   </div>
-                                         <div class="form-group">
-                                           <label for="edit_pro_std_code"><?php echo @LA_LB_EXPENDITURES_CODE;?></label>
-                                           <input type="text" name="edit_pro_std_code" id="edit_pro_std_code" class="form-control" value="<?php echo @$getitem->pro_std_code;?>">
+$getitem = $getdata->my_sql_query(NULL,"product","ProductID='".addslashes($_GET['key'])."'");
+
+                                                $getypetest = $getdata->my_sql_select(NULL,"type",NULL);
+                                                $getypebrand = $getdata->my_sql_select(NULL,"brand",NULL);
+                                                $getypemodel = $getdata->my_sql_select(NULL,"model",NULL);
+                                                $getdealer = $getdata->my_sql_select(NULL,"dealer",NULL);
+                                                $getshelf = $getdata->my_sql_select(NULL,"shelf",NULL);
+                                                
+                                                
+                                        ?>
+                                         <div class="modal-body">
+                                         <div class="form-group row">
+                                         <div class="col-md-6">
+                                              <label for="edit_ProductID">รหัสสินค้า</label>
+                                              <input type="text" name="edit_ProductID" id="edit_ProductID" value="<?php echo @$getitem->ProductID;?>" class="form-control" readonly>
+                                            </div>
+                                         <div class="col-md-6">
+                                             <label for="edit_dealer_code">ผู้จำหน่าย</label>
+                                             <select name="edit_dealer_code" id="edit_dealer_code" class="form-control">
+                                              <option value="" selected="selected">--เลือกผู้จำหน่าย--</option>
+                                              <?
+                                              while($showdealer = mysql_fetch_object($getdealer)){?>
+                                              <option value="<?php echo @$showdealer->dealer_code;?>" ><?php echo @$showdealer->dealer_name;?></option>
+                                              <?
+                                               }
+                                             ?>
+                                              </select>
+                                             </div>
+                                             </div>
+
+                                        <div class="form-group">
+                                           <label for="edit_ProductName">ชื่อสินค้า</label>
+                                           <input type="text" name="edit_ProductName" id="edit_ProductName" class="form-control" value="<?php echo @$getitem->ProductName;?>">
                                          </div>
+
                                          <div class="form-group">
-                                           <label for="edit_pro_name"><?php echo @LA_LB_EXPENDITURES_NAME;?></label>
-                                           <input type="text" name="edit_pro_name" id="edit_pro_name" value="<?php echo @$getitem->pro_name;?>" class="form-control">
-                                         </div>
-                                          <div class="form-group">
-                                            <label for="edit_pro_detail"><?php echo @LA_LB_DETAIL;?></label>
-                                            <textarea name="edit_pro_detail" id="edit_pro_detail" class="form-control"><?php echo @$getitem->pro_detail;?></textarea>
+                                            <label for="edit_ProductDetail">รายละเอียดสินค้า</label>
+                                            <textarea name="edit_ProductDetail" id="edit_ProductDetail" class="form-control"><?php echo @$getitem->ProductDetail;?></textarea>
                                           </div>
+                                       
+                                       <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="edit_TypeID">ประเภทสินค้า</label>
+                                              <select name="edit_TypeID" id="edit_TypeID" class="form-control">
+                                              <option value="" selected="selected">--เลือกประเภทสินค้า--</option>
+                                              <?
+                                              $rows = array();
+                                              while($showtype = mysql_fetch_object($getypetest)){
+                                                  $rows[] = $showtype;
+                                                  ?>
+                                                   <option value="<?php echo @$showtype->TypeID;?>" ><?php echo @$showtype->TypeName;?></option>
+                                                  <?
+                                              }
+                                              $getjson = @json_encode($rows,JSON_UNESCAPED_UNICODE);
+                                              ?>
+                                              </select>
+                                            </div>
+                                             <div class="col-md-6">
+                                             <label for="edit_BrandID">ยี่ห้อสินค้า</label>
+                                             <select name="edit_BrandID" id="edit_BrandID" class="form-control">
+                                              <option value="" selected="selected">--เลือกยี่ห้อสินค้า--</option>
+                                              <?
+                                              $rowsbrand = array();
+                                              while($showbrand = mysql_fetch_object($getypebrand)){
+                                                  $rowsbrand[] = $showbrand;
+                                               }
+                                              $getjsonbrand = @json_encode($rowsbrand,JSON_UNESCAPED_UNICODE);
+                                              ?>
+                                              </select>
+                                             </div>
+                                          </div>
+
+                                           <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="edit_ModelID">รุ่น</label>
+                                              <select name="edit_ModelID" id="edit_ModelID" class="form-control">
+                                              <option value="" selected="selected">--เลือกรุ่นสินค้า--</option>
+                                              <?
+                                              $rowmodel = array();
+                                              while($showmodel = mysql_fetch_object($getypemodel)){
+                                                  $rowmodel[] = $showmodel;
+                                               }
+                                              $getjsonmodel= @json_encode($rowmodel,JSON_UNESCAPED_UNICODE);
+                                              ?>
+                                              </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                             <label for="edit_Warranty">การรับประกัน</label>
+                                            <input type="text" name="edit_Warranty" id="edit_Warranty" class="form-control" value="<?php echo @$getitem->Warranty;?>">
+                                             </div>
+                                          </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-6">
+                                              <label for="Pedit_riceSale">ราคาขาย</label>
+                                              <input type="number" name="edit_PriceSale" id="edit_PriceSale" class="form-control" value="<?php echo @$getitem->PriceSale;?>" style="text-align: right;">
+                                            </div>
+                                             <div class="col-md-6">
+                                             <label for="edit_PriceBuy">ราคาซื้อ</label>
+                                            <input type="number" name="edit_PriceBuy" id="edit_PriceBuy" class="form-control" value="<?php echo @$getitem->PriceBuy;?>" style="text-align: right;">
+                                             </div>
+                                          </div>
+
                                           <div class="form-group row">
-                                            
-                                            <div class="col-md-4" align="center"><img src="../resource/products/thumbs/<?php echo @$getitem->pro_cover;?>"  id="img_border" alt="" width="120"/></div>
-                                            <div class="col-md-8"><label for="edit_pro_cover"><?php echo @LA_LB_PHOTO;?></label><input type="file" name="edit_pro_cover" id="edit_pro_cover" class="form-control"></div>
+                                            <div class="col-md-6">
+                                              <label for="edit_Quantity">คงเหลือ</label>
+                                              <input type="number" name="edit_Quantity" id="edit_Quantity" class="form-control" value="<?php echo @$getitem->Quantity;?>" style="text-align: right;">
+                                            </div>
+                                           </div>
                                            
+                                           <div class="form-group">
+                                              <label for="edit_shelf_id">shelf</label>
+                                              <select name="edit_shelf_id" id="edit_shelf_id" class="form-control">
+                                                <option value="" selected="selected">--เลือกชั้นวางสินค้า--</option>
+                                                <?
+                                              while($showshelf = mysql_fetch_object($getshelf)){?>
+                                              <option value="<?php echo @$showshelf->shelf_id;?>"><?php echo @$showshelf->shelf_detail;?></option>
+                                              <?
+                                               }
+                                             ?>
+                                              </select>
+     
                                           </div>
-                                         
-   <div class="form-group">
-     <label for="edit_pro_price"><?php echo @LA_LB_PRICE;?></label>
-     <input type="text" name="edit_pro_price" id="edit_pro_price" value="<?php echo $getitem->pro_price;?>" class="form-control">
-                                          </div>
-                                      
+                                          
                                         
-   <input type="hidden" name="pro_key" id="pro_key" value="<?php echo @addslashes($_GET['key']);?>">
- </div>
+                                        </div>
                                          <div class="modal-footer">
                                             <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fa fa-times fa-fw"></i><?php echo @LA_BTN_CLOSE;?></button>
                                           <button type="submit" name="save_edit_item" class="btn btn-primary btn-sm"><i class="fa fa-save fa-fw"></i><?php echo @LA_BTN_SAVE;?></button>
                                         </div>
+
+          <script language="javascript">
+          $( document ).ready(function() {
+           $('#edit_dealer_code').val('<?php echo @$getitem->dealer_code;?>');
+           $('#edit_TypeID').val('<?php echo @$getitem->TypeID;?>');
+            opctionBrand($('#edit_TypeID').val(),"edit_BrandID");
+            $('#edit_BrandID').val('<?php echo @$getitem->BrandID;?>');
+            opctionmodel($('#edit_BrandID').val(),"edit_ModelID");
+            $('#edit_ModelID').val('<?php echo @$getitem->ModelID;?>');
+            $('#edit_shelf_id').val('<?php echo @$getitem->shelf_id;?>');
+
+            $("#edit_TypeID").change(function() {
+              opctionBrand($(this).val(),"edit_BrandID");
+            });
+            $("#edit_BrandID").change(function() {
+              opctionmodel($(this).val(),"edit_ModelID");
+            });
+          });
+          </script>
+
+
                                     

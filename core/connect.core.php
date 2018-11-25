@@ -39,6 +39,16 @@ class clear_db{
 
 		return $objQuery;
 	}
+	function my_sql_selectJoin($field,$table,$join,$event){
+		if($field == NULL && $event == NULL){
+			$objQuery=mysql_query("SELECT * FROM ".$table." p left join ".$join);
+		}else{
+			
+			$objQuery=mysql_query("SELECT * FROM ".$table." p left join ".$join."  WHERE ".$event);
+		}
+
+		return $objQuery;
+	}
 	function getMaxID($field,$table,$value){
 		$objQuery=mysql_query("SELECT max(".$field.") as maxcode FROM ".$table);
 		$objShow=mysql_fetch_object($objQuery);
@@ -139,6 +149,14 @@ class clear_db{
 	}
 	function my_sql_close(){
 		return mysql_close();
+	}
+	function convertjson(){
+		$objQuery=mysql_query("SELECT * FROM type");
+		$rows = array();
+		while($objShow=mysql_fetch_object($objQuery)) {
+			$rows[] = $r;
+		}
+		return json_encode($rows);
 	}
 }
 ?>
