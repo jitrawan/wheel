@@ -70,9 +70,7 @@ if(isset($_POST['save_new_status'])){
  if(htmlentities($_GET['q']) != ""){
   $getcard = $getdata->my_sql_selectJoin(NULL,"reserve","product s on p.ProductID = s.ProductID ","p.reserveId = ".htmlentities($_GET['q']));
   $showcard = mysql_fetch_object($getcard);
-}
-   
-?>
+  ?>
 
 <div class="panel panel-primary" style="margin: auto; width: 90%;">
   <div class="panel-heading">
@@ -107,6 +105,12 @@ if(isset($_POST['save_new_status'])){
     </div>
   </div>
 </div>
+
+  <?
+}
+   
+?>
+
 
  
 
