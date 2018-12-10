@@ -2,7 +2,7 @@
 <div class="row">
      <div class="col-lg-12">
              <h1 class="page-header"><i class="fa flaticon-tag20 fa-fw"></i> Shelf สินค้า</h1>
-     </div>        
+     </div>
 </div>
 <ol class="breadcrumb">
   <li><a href="index.php"><?php echo @LA_MN_HOME;?></a></li>
@@ -17,7 +17,7 @@ if(isset($_POST['save_card'])){
     $getdata->my_sql_insert_New("shelf","shelf_detail, shelf_color, shelf_status","'".addslashes($_POST['shelf_detail'])."' ,'".addslashes($_POST['shelf_color'])."' ,'".addslashes($_POST['shelf_status'])."'");
 		$alert = '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_ADD_NEW_TYPE_OF_IS_DONE.'</div>';
 	}else{
-		$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>'; 
+		$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>';
 	}
 }
 if(isset($_POST['save_edit_card'])){
@@ -25,7 +25,7 @@ if(isset($_POST['save_edit_card'])){
 			 $getdata->my_sql_update("shelf","shelf_detail='".addslashes($_POST['edit_shelf_detail'])."',shelf_color='".addslashes($_POST['edit_shelf_color'])."'","shelf_id='".addslashes($_POST['edit_shelf_id'])."'");
 			$alert = '<div class="alert alert-info alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_UPDATE_DATA_DONE.'</div>';
 		 }else{
-			 $alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>'; 
+			 $alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_DATA_MISMATCH.'</div>';
 		 }
 	 }
 ?>
@@ -39,7 +39,7 @@ if(isset($_POST['save_edit_card'])){
                     <h4 class="modal-title" id="memberModalLabel">แก้ไข Shelf สินค้า</h4>
                 </div>
                 <div class="ct">
-              
+
                 </div>
             </div>
         </div>
@@ -59,7 +59,7 @@ if(isset($_POST['save_edit_card'])){
                                             <label for="shelf_detail">รายละเอียดshelf สินค้า</label>
                                             <input type="text" name="shelf_detail" id="shelf_detail" class="form-control" autofocus>
                                           </div>
-                                          
+
                                           <div class="form-group row">
                                             <div class="col-md-6">
                                               <label for="shelf_color">แทบสี</label>
@@ -69,9 +69,9 @@ if(isset($_POST['save_edit_card'])){
                                               <select name="shelf_status" id="shelf_status" class="form-control">
                                                 <option value="1" selected="selected"><?php echo @LA_BTN_SHOW;?></option>
                                                 <option value="0"><?php echo @LA_BTN_HIDE;?></option>
-                                              
+
                                               </select></div>
-                                            
+
                                           </div>
                                         </div>
                                         <div class="modal-footer">
@@ -88,12 +88,12 @@ if(isset($_POST['save_edit_card'])){
   <?php
   echo @$alert;
   ?>
- 
+
  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus fa-fw"></i> เพิ่มshelf สินค้า</button><br/><br/>
  <div class="panel panel-default">
   <!-- Default panel contents -->
   <!--div class="panel-heading">สถานะการซ่อม/เคลม ทั้งหมด</div-->
-  
+
    <div class="table-responsive">
   <!-- Table -->
   <table width="100%" class="table table-striped table-bordered table-hover">
@@ -107,7 +107,7 @@ if(isset($_POST['save_edit_card'])){
   <tbody>
   <?php
   $x=0;
-  $getcat = $getdata->my_sql_select(NULL,"shelf",NULL);
+  $getcat = $getdata->my_sql_select(NULL,"shelf","shelf_status in ('1','2') ORDER BY shelf_id ");
   while($showcat = mysql_fetch_object($getcat)){
 	  $x++;
   ?>
@@ -151,7 +151,7 @@ function changecatStatus(catkey,lang){
 	}
 	xmlhttp.onreadystatechange=function(){
   		if (xmlhttp.readyState==4 && xmlhttp.status==200){
-			
+
 			if(es.className == 'btn btn-success btn-xs'){
 				document.getElementById('btn-'+catkey).className = 'btn btn-danger btn-xs';
 				document.getElementById('icon-'+catkey).className = 'fa fa-lock';
@@ -160,7 +160,7 @@ function changecatStatus(catkey,lang){
 				}else{
 					document.getElementById('text-'+catkey).innerHTML = 'ปิดใช้งาน';
 				}
-				
+
 			}else{
 				document.getElementById('btn-'+catkey).className = 'btn btn-success btn-xs';
 				document.getElementById('icon-'+catkey).className = 'fa fa-unlock-alt';
@@ -169,11 +169,11 @@ function changecatStatus(catkey,lang){
 				}else{
 					document.getElementById('text-'+catkey).innerHTML = 'เปิดใช้งาน';
 				}
-				
+
 			}
   		}
 	}
-	
+
 	xmlhttp.open("GET","function.php?type=change_shelf_status&key="+catkey+"&sts="+sts,true);
 	xmlhttp.send();
 }
@@ -211,6 +211,6 @@ function changecatStatus(catkey,lang){
                 error: function(err) {
                     console.log(err);
                 }
-            });  
+            });
     })
     </script>

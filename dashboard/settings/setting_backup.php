@@ -1,7 +1,7 @@
 <div class="row">
      <div class="col-lg-12">
              <h1 class="page-header"><i class="fa fa-database fa-fw"></i> <?php echo @LA_LB_BACKUP;?></h1>
-     </div>        
+     </div>
 </div>
 <ol class="breadcrumb">
    <li><a href="index.php"><?php echo @LA_MN_HOME;?></a></li>
@@ -22,13 +22,13 @@ if(isset($_POST['backup'])){
 		datadump($table, true, true);
 		$stringData = datadump($table, true, true);
 		fwrite($fh, $stringData);
-	
+
 	}
 fclose($fh);
 //mkdir($getpath->backup_path.'/lynda_backup',777,true);
 //$newfile = $getpath->backup_path.'/lynda_backup/'.$fn;
 //if (!copy($myFile, $newfile)) {
-  //  $alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> '.LA_ALERT_NOT_BACKUP_PATH_ERROR.'</div>'; 
+  //  $alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> '.LA_ALERT_NOT_BACKUP_PATH_ERROR.'</div>';
 //}
 $bk=md5($fn.time("now"));
 $getdata->my_sql_insert("backup_logs","backup_key='".$bk."',backup_file='".$fn."',user_key='".$_SESSION['ukey']."'");
@@ -36,26 +36,26 @@ $getdata->my_sql_insert("backup_logs","backup_key='".$bk."',backup_file='".$fn."
 
 if(isset($_POST['submit_restore'])){
 	if (!defined('UPLOADDIR')) define('UPLOADDIR','../temp/');
-				if (is_uploaded_file($_FILES["file_restore"]["tmp_name"])) {	
+				if (is_uploaded_file($_FILES["file_restore"]["tmp_name"])) {
 				$File_name = $_FILES["file_restore"]["name"];
 				$File_tmpname = $_FILES["file_restore"]["tmp_name"];
 				$File_ext = pathinfo($File_name, PATHINFO_EXTENSION);
 				if($File_ext == 'sql'){
 					if (move_uploaded_file($File_tmpname, (UPLOADDIR.$File_name)));
 				}else{
-					$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_FILE_FORMAT_ERROR_SQL_ONLY.'</div>'; 
+					$alert = '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.LA_ALERT_FILE_FORMAT_ERROR_SQL_ONLY.'</div>';
 				}
-						
+
 	}
 	if($File_name != NULL){
 		if($File_ext == 'sql'){
 			require("../core/mysql_restore.core.php");
 			require("../core/config.core.php");
 			$restore_obj = new MySQL_Restore();
-			$restore_obj->server = DB_HOST;
-			$restore_obj->username = DB_USERNAME;
-			$restore_obj->password = DB_PASSWORD;
-			$restore_obj->database = DB_NAME;
+			$restore_obj->server = locahost;
+			$restore_obj->username = root;
+			$restore_obj->password = '';
+			$restore_obj->database = wheel;
 			if (!$restore_obj->Execute('../temp/'.$File_name,MSR_FILE, false, false))
 			{
 				die($restore_obj->error);
@@ -97,7 +97,7 @@ echo @$alert;
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="backup"><br/>
                                   <form name="form1" method="post" action="">
-                                  
+
   <button type="submit" name="backup" class="btn btn-primary btn-sm"><i class="fa fa-database fa-fw"></i> <?php echo @LA_LB_BACKUP_NOW;?></button><?php //echo dirname(__FILE__);?></form>
 <br/>
 <div class="panel panel-default">
@@ -144,18 +144,18 @@ echo @$alert;
                                       <tr>
                                         <td width="91%"><div class="input-group ">
                           <span class="input-group-addon"><?php echo @LA_LB_FILE_FOR_RESTORE;?></span>
-                                  
+
                                     <input type="file" name="file_restore" id="file_restore" class="form-control">
                                     </div></td>
                                         <td width="9%"><button type="submit" name="submit_restore" id="submit_restore" class=" btn btn-sm btn-danger"><i class="fa fa-history fa-fw"></i> <?php echo @LA_BTN_RESTORE;?></button></td>
                                       </tr>
                                     </table>
-                                   
+
                                   </form>
                                 </div>
                                <!-- <div class="tab-pane fade" id="cloud"><br/>
                                     <h4>Cloud Backup</h4>
-                                  
+
                                 </div>-->
-                               
+
                             </div>

@@ -30,6 +30,7 @@ class clear_db{
 		if($field == NULL && $event == NULL){
 			$objQuery=mysql_query("SELECT * FROM ".$table);
 		}else if($field == NULL){
+		
 			$objQuery=mysql_query("SELECT * FROM ".$table." WHERE ".$event);
 		}else if($event == NULL){
 			$objQuery=mysql_query("SELECT ".$field." FROM ".$table);
@@ -42,12 +43,22 @@ class clear_db{
 	function my_sql_selectJoin($field,$table,$join,$event){
 		if($field == NULL && $event == NULL){
 			$objQuery=mysql_query("SELECT * FROM ".$table." p left join ".$join);
+		}else if($field == NULL && $event != NULL){
+			$objQuery=mysql_query("SELECT * FROM ".$table." p left join ".$join." WHERE ".$event);
+		}else if($field != NULL && $event == NULL){
+			$objQuery=mysql_query("SELECT ".$field." FROM ".$table." p left join ".$join);
+		}else if($field != NULL && $event != NULL){
+			if($event != ''){
+				$objQuery=mysql_query("SELECT ".$field." FROM ".$table." p left join ".$join." ".$event);
+			}else{
+				$objQuery=mysql_query("SELECT ".$field." FROM ".$table." p left join ".$join);
+			}
+
 		}else{
-			
-			$objQuery=mysql_query("SELECT * FROM ".$table." p left join ".$join."  WHERE ".$event);
+			$objQuery=mysql_query("SELECT * FROM ".$table." p left join ".$join." ".$event);
 		}
 
-		return $objQuery;
+	return $objQuery;
 	}
 	function getMaxID($field,$table,$value){
 		$objQuery=mysql_query("SELECT max(".$field.") as maxcode FROM ".$table);
@@ -90,11 +101,17 @@ class clear_db{
 	}
 	function my_sql_update($table,$set,$event){
 		if($event != NULL){
+
 			return mysql_query("UPDATE ".$table." SET ".$set." WHERE ".$event);
 		}else{
 			return mysql_query("UPDATE ".$table." SET ".$set);
 		}
 	}
+function my_sql_updateJoin($table,$set,$event){
+	return mysql_query("UPDATE ".$table." SET " .$set. " WHERE ".$event);
+}
+
+
 	function my_sql_insert($table,$set){
 			return mysql_query("INSERT INTO ".$table." SET ".$set);
 	}
@@ -118,7 +135,7 @@ class clear_db{
 		mysql_query($cs2) or die('Error query: ' . mysql_error());
 		$cs3 = "SET character_set_connection = utf8";
 		mysql_query($cs3) or die('Error query: ' . mysql_error());
-	
+
 		mysql_query("SET NAMES utf8");
 		mysql_query("SET CHARACTER SET utf8");
 		mysql_query("SET collation_connection='utf8_unicode_ci'");
@@ -136,10 +153,10 @@ class clear_db{
 		mysql_query($cs2) or die('Error query: ' . mysql_error());
 		$cs3 = "SET character_set_connection = tis620";
 		mysql_query($cs3) or die('Error query: ' . mysql_error());
-		
+
 		mysql_query("SET NAMES tis620");
-		mysql_query("SET CHARACTER SET tis620");		
-		mysql_query("SET collation_connection='tis620_thai_ci'");		
+		mysql_query("SET CHARACTER SET tis620");
+		mysql_query("SET collation_connection='tis620_thai_ci'");
 		mysql_query("SET character_set_results=tis620");
 		mysql_query("SET character_set_client='tis620'");
 		mysql_query("SET character_set_connection='tis620'");

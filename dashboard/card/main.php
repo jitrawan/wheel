@@ -1,7 +1,7 @@
 <div class="row">
      <div class="col-lg-12">
              <h1 class="page-header"><i class="fa fa-edit fa-fw"></i> ส่งซ่อมสินค้า/เคลม</h1>
-     </div>        
+     </div>
 </div>
 <ol class="breadcrumb">
 <li><a href="index.php"><?php echo @LA_MN_HOME;?></a></li>
@@ -70,7 +70,7 @@ if(isset($_POST['save_card'])){
 </div>
    <?php
    echo @$alert;?>
-                 
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -86,15 +86,15 @@ if(isset($_POST['save_card'])){
       <ul class="nav navbar-nav">
    <li><a data-toggle="modal" data-target="#myModal" style="cursor:pointer;"><i class="fa fa-plus"></i> เพิ่มใบส่งซ่อม/เคลม</a></li>
        </ul>
-      
+
   <form class="navbar-form from-group navbar-right" role="search" method="get" action="?p=search">
- 
+
     <input type="text" class="form-control" name="q" placeholder="ระบุชื่อ/หมายเลขโทรศัพท์หรือรหัสส่งซ่อม/เคลม เพื่อค้นหา" size="50" autofocus  autocomplete="off">
     <input type="hidden" name="p" id="p" value="search" >
- 
+
 </form>
 </div>
- 
+
   </div>
   </nav>
   <?php
@@ -130,7 +130,7 @@ if(isset($_POST['save_card'])){
   }
   ?>
   </tbody>
-  
+
 </table>
 
 </div>

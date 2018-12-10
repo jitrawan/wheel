@@ -154,6 +154,7 @@ $getitem = $getdata->my_sql_query(NULL,"product","ProductID='".addslashes($_GET[
 
           <script language="javascript">
           $( document ).ready(function() {
+            
            $('#edit_dealer_code').val('<?php echo @$getitem->dealer_code;?>');
            $('#edit_TypeID').val('<?php echo @$getitem->TypeID;?>');
             opctionBrand($('#edit_TypeID').val(),"edit_BrandID");

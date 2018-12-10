@@ -85,10 +85,10 @@ if(@$_SESSION['lang']!=NULL){
     <script src="../js/plugins/metisMenu/metisMenu.min.js"></script>
 
     <!-- Morris Charts JavaScript -->
-    
+
     <script src="../js/plugins/morris/raphael.min.js"></script>
     <script src="../js/plugins/morris/morris.min.js"></script>
-   
+
 
     <!-- Custom Theme JavaScript -->
     <script src="../js/sb-admin-2.js"></script>
@@ -96,7 +96,7 @@ if(@$_SESSION['lang']!=NULL){
   <script src="../js/bootstrap-colorpicker.js"></script>
     <script src="../js/latest/typeahead.bundle.js"></script>
     <script src="../js/standalone/selectize.js"></script>
-<?php  
+<?php
 if(@addslashes($_GET['p']) == "cashier_nomember" || addslashes($_GET['p']) == "import" || addslashes($_GET['p']) == "cashier_member"){
 	$stime = 'onLoad="startDateTime();"';
 }
@@ -127,7 +127,7 @@ if(@addslashes($_GET['p']) == "cashier_nomember" || addslashes($_GET['p']) == "i
 					  $getmenus = $getdata->my_sql_select(NULL,"menus","menu_status='1' AND menu_key=menu_upkey ORDER BY menu_sorting");
 					  while($showmenus = mysql_fetch_object($getmenus)){
 						  $cksub = $getdata->my_sql_show_rows("menus","menu_status='1' AND menu_key <> menu_upkey AND '".$showmenus->menu_key."' = menu_upkey");
-						  
+
 						  if($cksub != 0){
 							  $showm ='<li><a href="'.$showmenus->menu_link.'" ';
 							  if(@addslashes($_GET['p']) == $showmenus->menu_link){$showm .='class="active"';}
@@ -150,9 +150,9 @@ if(@addslashes($_GET['p']) == "cashier_nomember" || addslashes($_GET['p']) == "i
 						  }
 					  }
 					  ?>
-                        
-                    </ul> 
-                    <div style="color:#CCC; text-align:center; padding-top:10px;">&copy;&nbsp;<?php echo @date("Y");?>&nbsp;Repair By <a href="http://clear.co.th" style="color:#CCC;">Clear</a></div>
+
+                    </ul>
+                    <div style="color:#CCC; text-align:center; padding-top:10px;">&copy;&nbsp;<?php echo @date("Y");?>&nbsp;Wheel</div>
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
@@ -170,7 +170,7 @@ if(@addslashes($_GET['p']) == "cashier_nomember" || addslashes($_GET['p']) == "i
                 }else{
                     require("main/main.php");
                 }
-	
+
     				?>
                     </div>
         </div>
@@ -185,14 +185,14 @@ if(@addslashes($_GET['p']) == "cashier_nomember" || addslashes($_GET['p']) == "i
  <script>
  $(window).load(function(){
         checkCardCount();
-		
+
 });
     // tooltip demo
     $('.tooltipx').tooltip({
         selector: "[data-toggle=tooltip]",
         container: "body"
     })
-	
+
 
     // popover demo
     $("[data-toggle=popover]")
@@ -240,7 +240,7 @@ if (i<10){
 <script language="javascript">
 var nowTemp = new Date();
 var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
- 
+
 var checkin = $('#dpd1').datepicker({
 	format: "yyyy-mm-dd",
   onRender: function(date) {
@@ -271,7 +271,7 @@ var checkout = $('#dpd2').datepicker({
 		 format : "yyyy-mm-dd"
 	 });
   });
- 
+
 </script>
 <script>
     $(function() {
@@ -280,9 +280,9 @@ var checkout = $('#dpd2').datepicker({
     });
 	function checkCardCount(){
 	 $.ajax({
-			async:false, 
+			async:false,
             url: 'function.php?type=show_card_count',
-            success: function(data) {   
+            success: function(data) {
                 $('#card_count').html(data);
              }
             });

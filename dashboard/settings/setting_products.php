@@ -78,7 +78,7 @@ if(isset($_POST['save_edit_item'])){
                                             </div>
                                             <div class="col-md-6">
                                              <label for="dealer_code">ผู้จำหน่าย</label>
-                                             <select name="dealer_code" id="dealer_code" class="form-control">
+                                             <select name="dealer_code" id="dealer_code">
                                               <option value="" selected="selected">--เลือกผู้จำหน่าย--</option>
                                               <?
                                               while($showdealer = mysql_fetch_object($getdealer)){?>
@@ -103,7 +103,7 @@ if(isset($_POST['save_edit_item'])){
                                        <div class="form-group row">
                                             <div class="col-md-6">
                                               <label for="TypeID">ประเภทสินค้า</label>
-                                              <select name="TypeID" id="TypeID" class="form-control">
+                                              <select name="TypeID" id="TypeID">
                                               <option value="" selected="selected">--เลือกประเภทสินค้า--</option>
                                               <?
                                               $rows = array();
@@ -119,7 +119,7 @@ if(isset($_POST['save_edit_item'])){
                                             </div>
                                              <div class="col-md-6">
                                              <label for="BrandID">ยี่ห้อสินค้า</label>
-                                             <select name="BrandID" id="BrandID" class="form-control">
+                                             <select name="BrandID" id="BrandID">
                                               <option value="" selected="selected">--เลือกยี่ห้อสินค้า--</option>
                                               <?
                                               $rowsbrand = array();
@@ -135,7 +135,7 @@ if(isset($_POST['save_edit_item'])){
                                            <div class="form-group row">
                                             <div class="col-md-6">
                                               <label for="ModelID">รุ่น</label>
-                                              <select name="ModelID" id="ModelID" class="form-control">
+                                              <select name="ModelID" id="ModelID">
                                               <option value="" selected="selected">--เลือกรุ่นสินค้า--</option>
                                               <?
                                               $rowmodel = array();
@@ -170,7 +170,7 @@ if(isset($_POST['save_edit_item'])){
                                             </div>
                                             <div class="col-md-6">
                                             <label for="pro_status"><?php echo @LA_LB_STATUS;?></label>
-                                           <select name="pro_status" id="pro_status" class="form-control">
+                                           <select name="pro_status" id="pro_status">
                                                 <option value="1" selected="selected">เปิดใช้งาน</option>
                                                 <option value="0">ปิดใช้งาน</option>
                                               
@@ -182,7 +182,7 @@ if(isset($_POST['save_edit_item'])){
                                          <div class="form-group">
                                          
                                               <label for="shelf_id">shelf</label>
-                                              <select name="shelf_id" id="shelf_id" class="form-control">
+                                              <select name="shelf_id" id="shelf_id" >
                                                 <option value="" selected="selected">--เลือกชั้นวางสินค้า--</option>
                                                 <?
                                               while($showshelf = mysql_fetch_object($getshelf)){?>
@@ -210,7 +210,7 @@ if(isset($_POST['save_edit_item'])){
   echo @$alert;
   ?>
  
- <!--button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus fa-fw"></i><?php echo @LA_LB_ADD_NEW_CATEGORIES;?></button--><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#model_product"><i class="fa flaticon-bullet1 fa-fw"></i><?php echo @LA_LB_ADD_NEW_EXPENDITURES;?></button>
+ <!--button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-plus fa-fw"></i><?php echo @LA_LB_ADD_NEW_CATEGORIES;?></button--><button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#model_product"><i class="fa flaticon-bullet1 fa-fw"></i>เพิ่มรายการสินค้า</button>
  <br/><br/>
 
  <nav class="navbar navbar-default" role="navigation">
@@ -324,6 +324,8 @@ if(isset($_POST['save_edit_item'])){
 </div>
 <script language="javascript">
 $( document ).ready(function() {
+
+   $('select').selectize();
   
   $("#TypeID").change(function() {
     opctionBrand($(this).val(),"BrandID");

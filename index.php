@@ -104,6 +104,8 @@ if(@$_SESSION['lang']!=NULL){
         </div>
     </div>
 
+    
+
     <!-- jQuery Version 1.11.0 -->
     <script src="js/jquery-1.11.0.js"></script>
 
@@ -115,6 +117,7 @@ if(@$_SESSION['lang']!=NULL){
 
     <!-- Custom Theme JavaScript -->
     <script src="js/sb-admin-2.js"></script>
+    
 
 </body>
 

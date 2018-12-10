@@ -1,7 +1,7 @@
 <div class="row">
      <div class="col-lg-12">
              <h1 class="page-header"><i class="fa flaticon-id fa-fw"></i> <?php echo @LA_LB_USER_DATA;?></h1>
-     </div>
+     </div>        
 </div>
 <ol class="breadcrumb">
     <li><a href="index.php"><?php echo @LA_MN_HOME;?></a></li>
@@ -12,7 +12,7 @@
  <?php
  if(isset($_POST['info_save'])){
 		if (!defined('UPLOADDIR2')) define('UPLOADDIR2','../resource/users/images/');
-				if (is_uploaded_file($_FILES["user_photo"]["tmp_name"])) {
+				if (is_uploaded_file($_FILES["user_photo"]["tmp_name"])) {	
 				$File_name2 = $_FILES["user_photo"]["name"];
 				$File_tmpname2 = $_FILES["user_photo"]["tmp_name"];
 				$File_ext2 = pathinfo($File_name2, PATHINFO_EXTENSION);
@@ -28,7 +28,7 @@
 	$_SESSION['lang'] = addslashes($_REQUEST['mlanguage']);
 	 $alert = '<div class="alert alert-block alert-success fade in"><button data-dismiss="alert" class="close" type="button">×</button>'.LA_ALERT_EDIT_DATA_INFO_DONE.'</div>';
  }
-
+ 
 
  if(isset($_POST['password_save'])){
 	 if($userdata->password != md5(addslashes($_POST['old_password']))){
@@ -44,7 +44,7 @@
 					$alert = '<div class="alert alert-block alert-danger fade in"><button data-dismiss="alert" class="close" type="button">×</button>'.LA_ALERT_DATA_MISMATCH.'</div>';
 				}
 			}
-
+			
 		}
  }
  if(isset($_POST['change_font_size'])){
@@ -52,7 +52,7 @@
 	 $userdata = $getdata->my_sql_query(NULL,"user,system_font_size","user.user_key='".$_SESSION['ukey']."' AND user.system_font_size=system_font_size.font_key");
 	 $alert = '<div class="alert alert-block alert-success fade in"><button data-dismiss="alert" class="close" type="button">×</button>เปลี่ยนขนาดตัวอักษร สำเร็จ!</div>';
  }
-
+ 
   $getmember_info = $getdata->my_sql_query(NULL,"user","user_key='".$_SESSION['ukey']."'");
  echo @$alert;
  ?>
@@ -66,7 +66,7 @@
                                 </li>
                                 <li><a href="#password_change" data-toggle="tab"><?php echo @LA_LB_PASSWORD_CHANGE;?></a>
                                 </li>
-
+                                
                             </ul>
 
                             <!-- Tab panes -->
@@ -82,10 +82,10 @@
                            <div class="form-group">
                                             <label for="musername"><?php echo @LA_LB_USERNAME;?></label>
                                             <input class="form-control" type="text" name="musername" id="musername" value="<?php echo @$getmember_info->username;?>" readonly>
-
+                                            
                            </div>
                            <div class="form-group row">
-
+                           	
                              	   <div class="col-xs-6">
                              	     <label for="mname"><?php echo @LA_LB_NAME;?></label>
                                      <input type="text" name="mname" id="mname" value="<?php echo @$getmember_info->name;?>" class="form-control">
@@ -94,9 +94,9 @@
                                      <label for="mlastname"><?php echo @LA_LB_LASTNAME;?></label>
                                      <input type="text" name="mlastname" id="mlastname" value="<?php echo @$getmember_info->lastname;?>" class="form-control">
                                    </div>
-
+                           	
                            </div>
-
+                          
                                              <div class="form-group row">
                                              <div class="col-xs-6">
                                              <label for="memail"><?php echo @LA_LB_EMAIL;?></label>
@@ -117,7 +117,7 @@
 											  ?>
                                               </select>
                                             </div>
-
+                                               
                           </div>
                            <div class="form-group row">
                            	<div class="col-xs-3"><center><div class="box_img_cyclex"><img src="../resource/users/thumbs/<?php echo @$getmember_info->user_photo;?>" <?php echo getPhotoSize('../resource/users/thumbs/'.@$getmember_info->user_photo.'');?> id="img_cyclex"  alt=""/></div></center></div>
@@ -127,7 +127,7 @@
                             </div>
                           </div>
                              <div class="form-group row">
-
+                             
                              <div class="col-md-12"><strong>ขนาดตัวอักษร</strong></div>
                              <?php
 							 $getfont = $getdata->my_sql_select(NULL,"system_font_size","font_status='1' ORDER BY font_name");
@@ -140,7 +140,7 @@
 							 }
 							 ?>
                              </div>
-
+                                           
                         </div>
                         <div class="panel-footer">
                           <button type="submit" name="info_save" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> <?php echo @LA_BTN_SAVE;?></button>
@@ -176,5 +176,5 @@
 </form>
 
                               </div>
-
+                               
                             </div>

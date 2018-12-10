@@ -162,7 +162,7 @@ if(!mysql_select_db(addslashes($_POST['db_name']),$connect) ){
 	$restore_obj->username = DB_USERNAME;
 	$restore_obj->password = DB_PASSWORD;
 	$restore_obj->database = DB_NAME;
-	if (!$restore_obj->Execute('db/repair.sql',MSR_FILE, false, false))
+	if (!$restore_obj->Execute('db/wheel.sql',MSR_FILE, false, false))
 	{
 		die($restore_obj->error);
 		
@@ -176,7 +176,7 @@ if(!mysql_select_db(addslashes($_POST['db_name']),$connect) ){
 	$restore_obj->username = DB_USERNAME;
 	$restore_obj->password = DB_PASSWORD;
 	$restore_obj->database = DB_NAME;
-	if (!$restore_obj->Execute('db/repair.sql',MSR_FILE, false, false))
+	if (!$restore_obj->Execute('db/wheel.sql',MSR_FILE, false, false))
 	{
 		die($restore_obj->error);
 	}
