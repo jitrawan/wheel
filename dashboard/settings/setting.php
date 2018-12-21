@@ -27,6 +27,7 @@ if($system_info->system_need_update == 1){
           <!--a href="?p=setting_products" class="btn btn-primary btn_main_wd"><i class="fa flaticon-bullet1 fa-fw fa-6x"></i><br/><br/>รายการค่าใช้จ่าย</a-->
           <a href="?p=setting_products" class="btn btn-primary btn_main_wd"><i class="fa flaticon-bullet1 fa-fw fa-6x"></i><br/><br/>รายการสินค้า</a>
           <a href="?p=member" class="btn btn-primary btn_main_wd"><i class="fa fa-users fa-fw fa-6x"></i><br/><br/>ผู้จำหน่าย</a>
+          <a href="?p=saleProduct" class="btn btn-primary btn_main_wd"><i class="fa fa-dollar fa-fw fa-6x"></i><br/><br/>เพิ่มรายการขายสินค้า</a>
           <!--a href="?p=setting_type" class="btn btn-primary btn_main_wd"><i class="fa fa-navicon fa-fw fa-6x"></i><br/><br/>ประเภทสินค้า</a>
           <a href="?p=setting_brand" class="btn btn-primary btn_main_wd"><i class="fa fa-cubes fa-fw fa-6x"></i><br/><br/>ยี่ห้อสินค้า</a>
           <a href="?p=setting_model" class="btn btn-primary btn_main_wd"><i class="fa fa-cube fa-fw fa-6x"></i><br/><br/>รุ่นสินค้า</a-->

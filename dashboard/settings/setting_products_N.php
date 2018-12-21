@@ -21,11 +21,6 @@ if(isset($_POST['save_product'])){
 
 $getfont = $getdata->my_sql_select(NULL,"product_N","ProductID='".addslashes($_POST['ProductID'])."' ");
 
-?>
-<script>
-//console.log(<?= mysql_num_rows($getfont)?>);
-</script>
-<?
 if(mysql_num_rows($getfont) < 1){
     $getdata->my_sql_insert_New("product_N","ProductID, dealer_code
     , Quantity, PriceSale, PriceBuy, TypeID, ProductStatus, Warranty, shelf_id, hand "
@@ -79,18 +74,6 @@ if(isset($_POST['save_edit_item'])){
       $Strsql .= " ,r.diameter = '".addslashes($_POST['edit_diameterRubber'])."' ,r.brand = '".addslashes($_POST['edit_brand'])."' ";
     }
 
-    /*
-product_N p  left join productDetailRubber r on p.ProductID = r.ProductID  ::  p.shelf_id = 2, p.dealer_code = 'D0001'  ,p.Quantity=40 , p.PriceSale= 5000  ,p.PriceBuy=3000 , p.Warranty= '1'  ,p.hand = '1'
-,r.width =  ,r.series =   ,r.diameter =  ,r.brand =
-    */
-    ?>
-<script>
-//console.log('<?= $table?>');
-//console.log('<?= $_POST['gettype']?>');
-//console.log('<?= $Strsql?>');
-//console.log('<?= addslashes($_POST['edit_ProductID'])?>');
-</script>
-    <?
 
 	  $getdata->my_sql_updateJoin($table , $Strsql ," p.ProductID = '".addslashes($_POST['edit_ProductID'])."' ");
 
@@ -651,18 +634,21 @@ function changeproductsStatus(prokey,lang){
 	xmlhttp.send();
 }
 	function deleteProduct(prokey){
+
 	if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
 	 	xmlhttp=new XMLHttpRequest();
 	}else{// code for IE6, IE5
   		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
 	}
-	xmlhttp.onreadystatechange=function(){
+
+  xmlhttp.onreadystatechange=function(){
+    console.log(xmlhttp.readyState+" : "+xmlhttp.status);
   		if (xmlhttp.readyState==4 && xmlhttp.status==200){
 			document.getElementById(prokey).innerHTML = '';
 
   		}
 	}
-	xmlhttp.open("GET","function.php?type=delete_products&key="+prokey,true);
+  xmlhttp.open("GET","function.php?type=delete_products&key="+prokey,true);
 	xmlhttp.send();
 }
 

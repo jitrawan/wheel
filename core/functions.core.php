@@ -1,6 +1,23 @@
 <?php
 date_default_timezone_set('Asia/Bangkok');
 //------------ in use -------------
+function thaidate($vardate="") {
+$_month_name = array("01"=>"มกราคม",  "02"=>"กุมภาพันธ์",  "03"=>"มีนาคม",
+    "04"=>"เมษายน",  "05"=>"พฤษภาคม",  "06"=>"มิถุนายน",
+    "07"=>"กรกฎาคม",  "08"=>"สิงหาคม",  "09"=>"กันยายน",
+    "10"=>"ตุลาคม", "11"=>"พฤศจิกายน",  "12"=>"ธันวาคม");
+	$yy=substr($vardate,0,4);
+	$mm=substr($vardate,5,2);
+	$dd=substr($vardate,8,2);
+
+	$yy += 543;
+	if ($yy==543){
+		$dateT = "-";
+	}else{
+		$dateT=$dd ." ".$_month_name[$mm]."  ".$yy;
+	 }
+  return $dateT;
+}
 
 function updateDateNow(){
 	$getdata = new clear_db();
@@ -12,7 +29,7 @@ function updateDateNow(){
 	}else{
 		$getdata->my_sql_update("autonumber","year='".date("Y")."',month='".date("m")."',day='".date("d")."'",NULL);
 	}
-	
+
 }
 function INumber(){
 	$getdata = new clear_db();
@@ -70,11 +87,11 @@ function dateConvertor($date){
 	$epd = explode("-",$date);
 		$Y=$epd[0]+543;
 		return $epd[2]."/".$epd[1]."/".$Y;
-	
+
 }
 function dateConvertorAD($date){
 	return date("F d, Y", strtotime($date));
-	
+
 }
 function dateTimeConvertor($datetime){
 	$epd = explode(" ",$datetime);
@@ -130,8 +147,8 @@ function resizeProductThumb($imgext,$imgname){
 		case "jpg" :
 		case "jpeg" : 		$images = "../resource/products/images/".$imgname;
 							$new_images = "../resource/products/thumbs/".$imgname;
-						
-					
+
+
 							$width=400; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -145,8 +162,8 @@ function resizeProductThumb($imgext,$imgname){
 			break;
 			case "png" : 	$images = "../resource/products/images/".$imgname;
 							$new_images = "../resource/products/thumbs/".$imgname;
-						
-					
+
+
 							$width=400; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -159,8 +176,8 @@ function resizeProductThumb($imgext,$imgname){
 			break;
 			case "gif"	:	$images = "../resource/products/images/".$imgname;
 							$new_images = "../resource/products/thumbs/".$imgname;
-					
-					
+
+
 							$width=400; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -173,8 +190,8 @@ function resizeProductThumb($imgext,$imgname){
 			break;
 			default : $images = "../resource/products/images/".$imgname;
 							$new_images = "../resource/products/thumbs/".$imgname;
-						
-					
+
+
 							$width=400; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -185,17 +202,17 @@ function resizeProductThumb($imgext,$imgname){
 							ImageCopyResampled($images_fin, $images_orig, 0, 0, 0, 0, $width+1, $height+1, $photoX, $photoY);
 							ImageJPEG($images_fin,$new_images);
 							ImageDestroy($images_fin);
-							
+
 	}
-	
+
 }
 function resizeMemberThumb($imgext,$imgname){
 	switch($imgext){
 		case "jpg" :
 		case "jpeg" : 		$images = "../resource/members/images/".$imgname;
 							$new_images = "../resource/members/thumbs/".$imgname;
-						
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -209,8 +226,8 @@ function resizeMemberThumb($imgext,$imgname){
 			break;
 			case "png" : 	$images = "../resource/members/images/".$imgname;
 							$new_images = "../resource/members/thumbs/".$imgname;
-						
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -223,8 +240,8 @@ function resizeMemberThumb($imgext,$imgname){
 			break;
 			case "gif"	:	$images = "../resource/members/images/".$imgname;
 							$new_images = "../resource/members/thumbs/".$imgname;
-					
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -237,8 +254,8 @@ function resizeMemberThumb($imgext,$imgname){
 			break;
 			default : $images = "../resource/members/images/".$imgname;
 							$new_images = "../resource/members/thumbs/".$imgname;
-						
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -249,17 +266,17 @@ function resizeMemberThumb($imgext,$imgname){
 							ImageCopyResampled($images_fin, $images_orig, 0, 0, 0, 0, $width+1, $height+1, $photoX, $photoY);
 							ImageJPEG($images_fin,$new_images);
 							ImageDestroy($images_fin);
-							
+
 	}
-	
+
 }
 function resizeUserThumb($imgext,$imgname){
 	switch($imgext){
 		case "jpg" :
 		case "jpeg" : 		$images = "../resource/users/images/".$imgname;
 							$new_images = "../resource/users/thumbs/".$imgname;
-						
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -273,8 +290,8 @@ function resizeUserThumb($imgext,$imgname){
 			break;
 			case "png" : 	$images = "../resource/users/images/".$imgname;
 							$new_images = "../resource/users/thumbs/".$imgname;
-						
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -287,8 +304,8 @@ function resizeUserThumb($imgext,$imgname){
 			break;
 			case "gif"	:	$images = "../resource/users/images/".$imgname;
 							$new_images = "../resource/users/thumbs/".$imgname;
-					
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -301,8 +318,8 @@ function resizeUserThumb($imgext,$imgname){
 			break;
 			default : $images = "../resource/users/images/".$imgname;
 							$new_images = "../resource/users/thumbs/".$imgname;
-						
-					
+
+
 							$width=250; //*** Fix Width & Heigh (Auto caculate) ***//
 							$size=GetimageSize($images);
 							$height=round($width*$size[1]/$size[0]);
@@ -313,9 +330,9 @@ function resizeUserThumb($imgext,$imgname){
 							ImageCopyResampled($images_fin, $images_orig, 0, 0, 0, 0, $width+1, $height+1, $photoX, $photoY);
 							ImageJPEG($images_fin,$new_images);
 							ImageDestroy($images_fin);
-							
+
 	}
-	
+
 }
 
 function accessModule($module_key,$return_value){
@@ -335,7 +352,7 @@ function updateCenter($user_version,$update_url){
 	$getdata->my_sql_set_utf8();
 	$curlurl = $update_url."check/getversion.php";
 	$user_agent = "Mozilla/4.0 (compatible; MSIE 5.01; Windows NT 5.0)";
-	$params = "uv=".$user_version; 
+	$params = "uv=".$user_version;
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 	curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -404,7 +421,7 @@ function RandomString($password_pattern,$password_prefix,$password_length)
 	}else{
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 	}
-    
+
     $randstring = '';
     for ($i = 0; $i < $password_length; $i++) {
         $randstring .= $characters[rand(0, strlen($characters))];
@@ -418,7 +435,7 @@ function RandomString($password_pattern,$password_prefix,$password_length)
 	}else{
 		return $password_prefix.$randstring;
 	}
-    
+
 }
 function cardStatus($card_status){
 	$getdata = new clear_db();
@@ -442,7 +459,7 @@ function url(){
     else{
         $protocol = 'http';
     }
-	
+
     $full = $protocol . "://" . $_SERVER['HTTP_HOST'].$_SERVER['SCRIPT_NAME'];
 	$cut = str_replace('dashboard/card/print_card.php','card.php?key=',$full);
 	return $cut;

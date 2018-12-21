@@ -18,6 +18,7 @@ require("../core/config.core.php");
 $getdata=new clear_db();
 $connect = $getdata->my_sql_connect(DB_HOST,DB_USERNAME,DB_PASSWORD,DB_NAME);
 $getdata->my_sql_set_utf8();
+
 	switch(addslashes($_GET['type'])){
 
 		case "chg_ordering" : $getdata->my_sql_update("slideshow","slide_sorting='".addslashes($_GET['sort'])."'","slide_key='".addslashes($_GET['key'])."'");
@@ -198,6 +199,12 @@ break;
 		case "delete_products" : $getdata->my_sql_update("products","pro_status='2'","pro_key='".addslashes($_GET['key'])."'");
 									$getdata->my_sql_update("products_barcode","barcode_status='0'","product_key='".addslashes($_GET['key'])."'");
 		break;
+		case "delete_stock" :
+					$getpo = $getdata->my_sql_query(NULL,"stock_tb_receive_master_sub"," '".addslashes($_GET['key'])."' ");
+					$getdata->my_sql_update("product_N"," Quantity =  Quantity - '".addslashes($getpo->total)."' ","ProductID='".addslashes($_GET['id'])."' ");
+					$getdata->my_sql_delete(" stock_tb_receive_master_sub "," no='".addslashes($_GET['key'])."' ");
+
+		break;
 		case "delete_pro_import_temp_item" : $getdata->my_sql_delete("import_temp","import_temp_key='".addslashes($_GET['key'])."'");
 		break;
 		case "delete_pro_export_temp_item" : $getdata->my_sql_delete("export_temp","export_temp_key='".addslashes($_GET['key'])."'");
@@ -205,6 +212,28 @@ break;
 		case "delete_other_temp_item" : $getdata->my_sql_delete("products_export_other_temp","other_key='".addslashes($_GET['key'])."'");
 		break;
 		case "delete_free_temp_item" : $getdata->my_sql_delete("products_export_free_temp","free_key='".addslashes($_GET['key'])."'");
+		break;
+		case "insert_saleinfo" :
+//$getpo = $getdata->my_sql_query(NULL,"stock_tb_receive_master_sub"," '".addslashes($_GET['key'])."' ");
+//$getdata->my_sql_update("product_N"," Quantity =  Quantity - '".addslashes($getpo->total)."' ","ProductID='".addslashes($_GET['id'])."' ");
+//$getdata->my_sql_delete(" stock_tb_receive_master_sub "," no='".addslashes($_GET['key'])."' ");
+
+break;
+		case "saveTable" :
+		$getproduct_info = $getdata->my_sql_select(" p.*,r.*,w.* "
+		," product_N p left join productDetailWheel w on p.ProductID = w.ProductID
+		   left join productDetailRubber r on p.ProductID = r.ProductID "
+		," p.ProductID='".addslashes($_GET['key'])."' ");
+		while($objShow = mysql_fetch_object($getproduct_info)){
+								$data[] = $objShow;
+						}
+
+						$results = ["sEcho" => 1,
+							"iTotalRecords" => count($data),
+							"iTotalDisplayRecords" => count($data),
+							"aaData" => $data ];
+						echo json_encode($data);
+	//	echo addslashes($_GET['key']);
 		break;
 
 		case "cancel_reciept":
